@@ -5,11 +5,12 @@ Dead simple cmake OpenGL function loading based on [gl3w](https://github.com/ska
 
 # Introduction
 
-LoadGL.cmake is a small cmake script which downloads the lastest OpenGL headers from the [registry](http://www.opengl.org/registry/) and turns them into gl3w.h and gl3w.c. These files can be either linked (statically or dynamically) or compiled into your application directly.
+LoadGL.cmake is a small cmake script which downloads the lastest OpenGL headers from the [registry](http://www.opengl.org/registry/) and turns them into gl3w.h and gl3w.c.  
+These files can be either linked (statically or dynamically) or compiled into your application directly.
 
 #Example
 
-The usage on the cmake side of things is as easy as it could get. 
+The usage on the cmake side of things is as easy as it could get.  
 Just add the files in this repository (or use a [git submodule](http://git-scm.com/book/de/Git-Tools-Submodule)) into your module path and you are ready to go.
 
 ```cmake
@@ -28,7 +29,8 @@ add_executable(MyAwesomeProject ${SOURCE})
 target_link_libraries(MyAwesomeProject LoadGL)
 ```
 
-the C/C++ side behaves exactly as [gl3w](https://github.com/skaslev/gl3w) does. (Example stolen from their Readme :D)
+The C/C++ side behaves exactly as [gl3w](https://github.com/skaslev/gl3w) does.  
+(from [gl3w](https://github.com/skaslev/gl3w) Readme)
 
 ```CPP
 #include <stdio.h>
@@ -73,7 +75,7 @@ int main(int argc, char **argv)
 
 ## LoadGL.cmake
 
-LoadGL.cmakes behaivour is controlable by setting some cmake variables _befor_ calling `include(LoadGL.cmake)`.
+LoadGL.cmakes behaivour is controlable by setting some cmake variables _befor_ calling `include(LoadGL.cmake)`.  
 By default LoadGL will build a static library which can be linked as seen in the example above.
 
 `LOADGL_DIR`
@@ -103,7 +105,8 @@ By default LoadGL will build a static library which can be linked as seen in the
 
 ## gl3w API
 
-the gl3w API is quite simple. (again stolen from their Readme)
+The gl3w API is quite simple.  
+(from [gl3w](https://github.com/skaslev/gl3w) Readme)
 
 `int gl3wInit(void)`
 
@@ -125,28 +128,28 @@ the gl3w API is quite simple. (again stolen from their Readme)
 
 # License
 
-gl3w is in the public domain.
-same is LoadGL.cmake
+gl3w is in the public domain.  
+LoadGL.cmake is in the public domain.
 
 # Credits
 
-Slavomir Kaslev <slavomir.kaslev@gmail.com>
-    gl3w Initial implementation
+__Slavomir Kaslev <slavomir.kaslev@gmail.com>__  
+> gl3w Initial implementation
 
-Kelvin McDowell
-    gl3w Mac OS X support
+__Kelvin McDowell__  
+> gl3w Mac OS X support
 
-Sjors Gielen
-    gl3w Mac OS X support
+__Sjors Gielen__  
+> gl3w Mac OS X support
 
-Travis Gesslein
-    gl3w Patches regarding glcorearb.h
+__Travis Gesslein__  
+> gl3w Patches regarding glcorearb.h
 
-Rommel160 [github.com/Rommel160]
-    gl3w Code contributions
+__Rommel160 [github.com/Rommel160]__  
+> gl3w Code contributions
     
-Benedikt Kleiner
-    LoadGL.cmake Initial implementation
+__Benedikt Kleiner__  
+> LoadGL.cmake Initial implementation
     
 # Note
 
