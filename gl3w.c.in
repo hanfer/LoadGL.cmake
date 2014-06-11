@@ -1,0 +1,107 @@
+#include <GL/gl3w.h>
+
+#ifdef _WIN32
+#define WIN32_LEAN_AND_MEAN 1
+#include <windows.h>
+
+static HANDLE libgl;
+
+static void open_libgl(void)
+{
+	libgl = LoadLibraryA("opengl32.dll");
+}
+
+static void close_libgl(void)
+{
+	FreeLibrary(libgl);
+}
+
+static void *get_proc(const char *proc)
+{
+	void *res;
+
+	if (!(res = wglGetProcAddress(proc)))
+		res = GetProcAddress(libgl, proc);
+	return res;
+}
+
+#else
+
+#include <dlfcn.h>
+#include <GL/glx.h>
+
+static void *libgl;
+
+static void open_libgl(void)
+{
+	libgl = dlopen("libGL.so.1", RTLD_LAZY | RTLD_GLOBAL);
+}
+
+static void close_libgl(void)
+{
+	dlclose(libgl);
+}
+
+static void *get_proc(const char *proc)
+{
+	void *res;
+
+	if (!(res = glXGetProcAddress((const GLubyte *) proc)))
+		res = dlsym(libgl, proc);
+	return res;
+}
+
+#endif
+
+static struct {
+	int major, minor;
+} version;
+
+static int parse_version(void)
+{
+	const char *p;
+	int major, minor;
+
+	if (!glGetString || !(p = glGetString(GL_VERSION)))
+		return -1;
+	for (major = 0; *p >= '0' && *p <= '9'; p++)
+		major = 10 * major + *p - '0';
+	for (minor = 0, p++; *p >= '0' && *p <= '9'; p++)
+		minor = 10 * minor + *p - '0';
+	if (major < 3)
+		return -1;
+	version.major = major;
+	version.minor = minor;
+	return 0;
+}
+
+static void load_procs(void);
+
+int gl3wInit(void)
+{
+	open_libgl();
+	load_procs();
+	close_libgl();
+	return parse_version();
+}
+
+int gl3wIsSupported(int major, int minor)
+{
+	if (major < 3)
+		return 0;
+	if (version.major == major)
+		return version.minor >= minor;
+	return version.major >= major;
+}
+
+void *gl3wGetProcAddress(const char *proc)
+{
+	return get_proc(proc);
+}
+
+@PROCDEFS@
+
+static void load_procs(void)
+{
+@PROCLOAD@
+}

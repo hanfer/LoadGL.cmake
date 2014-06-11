@@ -1,0 +1,30 @@
+#pragma once
+
+#ifdef _WIN32
+#define WIN32_LEAN_AND_MEAN 1
+#include <windows.h>
+#endif
+
+#cmakedefine LOADGL_COMPAT
+
+#ifdef LOADGL_COMPAT
+#include <GL/gl.h>
+#endif
+
+#include <GL/@LOADGL_GL_HEADER@>
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+/* gl3w api */
+int gl3wInit(void);
+int gl3wIsSupported(int major, int minor);
+void *gl3wGetProcAddress(const char *proc);
+
+/* OpenGL Functions */
+@PROCDECS@
+
+#ifdef __cplusplus
+}
+#endif
