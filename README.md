@@ -145,7 +145,7 @@ __Sjors Gielen__
 __Travis Gesslein__  
 > gl3w Patches regarding glcorearb.h
 
-__Rommel160 [github.com/Rommel160]__  
+__[Rommel160](github.com/Rommel160)__  
 > gl3w Code contributions
     
 __Benedikt Kleiner__  
